@@ -1,6 +1,9 @@
-# Getting Started with Create React App
+# dowload project from link github
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is link github [https://github.com/ThanhTrieu/reactjs-2012]
+
+cd to root project
+### run command: npm install or yarn install
 
 ## Available Scripts
 
