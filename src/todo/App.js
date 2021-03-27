@@ -55,6 +55,15 @@ class AppTodo extends React.Component {
     })
   }
 
+  finishTodo = (id) => {
+    // cap nhat lai trang thai done ve true cua cong viec co ma la id gui len
+    const updateTodo = this.state.list_work.map(item => item.id === id ? {...item, done: !item.done} : item);
+    this.setState({
+      ...this.state,
+      list_work: updateTodo
+    })
+  }
+
   render() {
     console.log(this.state.list_work);
     return(
@@ -70,6 +79,7 @@ class AppTodo extends React.Component {
           <ListTodo
             list={this.state.list_work}
             remove={this.removeTodo}
+            finish={this.finishTodo}
           />
         </DivContainer>
       </>

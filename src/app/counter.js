@@ -1,6 +1,8 @@
 import React from 'react';
 import ButtonCounter from '../components/counter/button';
 import Result from '../components/counter/result';
+import HeaderComponent from '../components/counter/header';
+
 import './counter.css';
 
 class CounterApp extends React.Component {
@@ -47,6 +49,7 @@ class CounterApp extends React.Component {
     return(
       <>
         <div className="container">
+          <HeaderComponent/>
           <Result count={this.state.count} />
           <ButtonCounter
             type="button"
