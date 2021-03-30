@@ -1,5 +1,6 @@
 import React  from 'react';
 import { Table, Skeleton } from 'antd';
+import CoronaContext from '../context/MyContext';
 
 const columns = [
   {
@@ -44,18 +45,20 @@ const columns = [
   }
 ];
 
-
-
 class Countries extends React.Component {
-
   render() {
-    if(this.props.loading || this.props.virus.length === 0){
-      return (<Skeleton active />)
-    }
     return(
-      <>
-        <Table style={{ marginTop: '20px' }} columns={columns} dataSource={this.props.virus.Countries} rowKey="CountryCode" />
-      </>
+      <CoronaContext.Consumer>
+        { data => {
+          if(data.loading || data.virus.length === 0){
+            return (<Skeleton active />)
+          }
+          return (
+            <Table style={{ marginTop: '20px' }} columns={columns} dataSource={data.virus.Countries} rowKey="CountryCode" />
+          )
+        }}
+        
+      </CoronaContext.Consumer>
     )
   }
 }
