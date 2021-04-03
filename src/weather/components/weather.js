@@ -1,16 +1,24 @@
 import React from 'react';
-import { Card } from 'antd';
+import { Card, Skeleton, Image } from 'antd';
+import WeatherContext from '../context/weather-context';
 
 class WeatherComponent extends React.PureComponent {
   render() {
     return(
-      <>
-        <Card title="Weather" bordered={true}>
-          <p>Thoi tiet : Mist</p>
-          <p>Chu thich: mist</p>
-          <p></p>
-        </Card>
-      </>
+      <WeatherContext.Consumer>
+        {context => {
+          if(context.loading){
+            return (<Skeleton active />)
+          }
+          return (
+            <Card title="Weather" bordered={true}>
+              <p>Thoi tiet : {context.weathers.weather[0].main}</p>
+              <p>Chu thich: {context.weathers.weather[0].description}</p>
+              <Image src={`http://openweathermap.org/img/w/${context.weathers.weather[0].icon}.png`} />
+            </Card>
+          )
+        }}
+      </WeatherContext.Consumer>
     )
   }
 }

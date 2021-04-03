@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
-import App from './weather/index';
+import App from './hooks/ptbh/index';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
