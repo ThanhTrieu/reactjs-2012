@@ -5,6 +5,7 @@ import PaginationMovies from './components/pagination';
 import SwitchLanguage from './components/switch-language';
 import { apiMovie } from './services/api';
 import { helpers } from './helpers/common';
+import UserProfileProvider from './context/user-provider';
 
 const AppMovies = () => {
   // tao state
@@ -48,24 +49,26 @@ const AppMovies = () => {
   }
 
   return(
-    <Row>
-      <Col span={20} offset={2}>
-        <SwitchLanguage
-          change={changeLanguage}
-        />
-        <ListMovies
-          dataMovies={dataMovies}
-          loading={loading}
-        />
-        {!loading && !helpers.isEmptyObject(dataMovies) ?  <PaginationMovies
-          currentPage={page}
-          totalItems={totalItems}
-          pageSize={20}
-          changePage={changePage}
-        /> : null}
-        
-      </Col>
-    </Row>
+    <UserProfileProvider>
+      <Row>
+        <Col span={20} offset={2}>
+          <SwitchLanguage
+            change={changeLanguage}
+          />
+          <ListMovies
+            dataMovies={dataMovies}
+            loading={loading}
+          />
+          {!loading && !helpers.isEmptyObject(dataMovies) ?  <PaginationMovies
+            currentPage={page}
+            totalItems={totalItems}
+            pageSize={20}
+            changePage={changePage}
+          /> : null}
+          
+        </Col>
+      </Row>
+    </UserProfileProvider>
   )
 }
 export default AppMovies;

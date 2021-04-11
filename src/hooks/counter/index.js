@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import ButtonCounter from './components/button';
 import ResultCounter from './components/result';
+import HeaderComponent from './components/header';
 
 const AppCounter = () => {
   const [count, setCount] = useState(0);
@@ -27,6 +28,7 @@ const AppCounter = () => {
 
   return(
     <>
+      <HeaderComponent/>
       <ResultCounter result={count} />
       <ButtonCounter
         type="button"
