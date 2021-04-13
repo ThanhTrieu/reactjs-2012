@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
-import App from './hooks/corona/index';
+import App from './movies/index';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
