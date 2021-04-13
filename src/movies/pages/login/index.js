@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import {
   Row,
   Col,
@@ -32,7 +32,7 @@ const LoginPage = () => {
   const onFinish = (values) => {
     const user = values.username;
     const pass = values.password;
-    let token = api.loginUser(user, pass)
+    const token = api.loginUser(user, pass)
     if(token !== null){
       setErrorLogin('');
       //console.log(token);
