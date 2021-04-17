@@ -3,31 +3,65 @@ import { Skeleton } from 'antd';
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
+  Redirect
 } from "react-router-dom";
+import { helper } from '../helpers/common';
 
 const SearchPage = lazy(() => import('../pages/search/index'));
 const PopularPage = lazy(() => import('../pages/popular/index'));
 const UpcomingPage = lazy(() => import('../pages/upcoming/index'));
 const LoginPage = lazy(() => import('../pages/login/index'));
 
+const PrivateRoute = ({children, ...rest}) => {
+  const auth = helper.isAuthenticated();
+  return (
+    <Route
+      {...rest}
+      render={({ location }) => auth
+              ? (children)
+              : <Redirect to={{
+                  pathname: "/",
+                  state: { from: location } 
+              }} />
+      }
+    /> 
+  )
+}
+
+const IsLoginRouter = ({children, ...rest}) => {
+  const auth = helper.isAuthenticated();
+  return (
+    <Route
+      {...rest}
+      render={({ location }) => auth
+              ? <Redirect to={{
+                  pathname: "/search-movie",
+                  state: { from: location } 
+              }} />
+              : (children)
+      }
+    /> 
+  )
+}
+
 const RouteMovie = () => {
   return (
     <Router>
       <Suspense fallback={<Skeleton active />}>
         <Switch>
-          <Route path="/" exact>
+          <IsLoginRouter path="/" exact>
             <LoginPage/>
-          </Route>
-          <Route path="/popular-movie">
+          </IsLoginRouter>
+          <PrivateRoute path="/popular-movie">
             <PopularPage/>
-          </Route>
-          <Route path="/upcoming-movie">
+          </PrivateRoute>
+          <PrivateRoute path="/upcoming-movie">
             <UpcomingPage/>
-          </Route>
-          <Route path="/search-movie">
+          </PrivateRoute>
+          <PrivateRoute path="/search-movie">
             <SearchPage/>
-          </Route>
+          </PrivateRoute>
         </Switch>
       </Suspense>
     </Router>

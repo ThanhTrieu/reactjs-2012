@@ -1,7 +1,8 @@
 import React from 'react';
 import { Layout, Menu } from 'antd';
 import styled from 'styled-components';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useHistory } from 'react-router-dom';
+import { helper } from '../helpers/common';
 
 const DivLogoHeader = styled.div`
   float: left;
@@ -14,7 +15,17 @@ const DivLogoHeader = styled.div`
 const { Header } = Layout;
 
 const HeaderMovie = () => {
+  const history = useHistory();
   const { pathname } = useLocation();
+  const info = helper.decryptTokenLocalStorage();
+  const username = info !== null ? info.email : null;
+
+  const logoutUser = () => {
+    // xoa token
+    helper.removeToken();
+    // quay ve trang login
+    history.push('/');
+  }
 
   return (
     <Header>
@@ -29,9 +40,25 @@ const HeaderMovie = () => {
         <Menu.Item key="/upcoming-movie">
           <Link to="/upcoming-movie">Upcoming movies</Link>
         </Menu.Item>
-        <Menu.Item key="/login">
-          <Link to="/login">Login</Link>
+        {
+          info === null 
+          && 
+          <Menu.Item key="/">
+            <Link to="/">Login</Link>
+          </Menu.Item>
+        }
+      
+        <Menu.Item>
+          <span> Hi: {username}</span>
         </Menu.Item>
+
+        {
+          info !== null 
+          &&
+          <Menu.Item onClick={() => logoutUser()}>
+            <span>Logout</span>
+          </Menu.Item>
+        }
       </Menu>
     </Header>
   )
