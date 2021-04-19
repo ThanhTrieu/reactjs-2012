@@ -12,6 +12,7 @@ const SearchPage = lazy(() => import('../pages/search/index'));
 const PopularPage = lazy(() => import('../pages/popular/index'));
 const UpcomingPage = lazy(() => import('../pages/upcoming/index'));
 const LoginPage = lazy(() => import('../pages/login/index'));
+const DetailPage = lazy(() => import('../pages/detail/index'));
 
 const PrivateRoute = ({children, ...rest}) => {
   const auth = helper.isAuthenticated();
@@ -61,6 +62,10 @@ const RouteMovie = () => {
           </PrivateRoute>
           <PrivateRoute path="/search-movie">
             <SearchPage/>
+          </PrivateRoute>
+          <PrivateRoute path="/movie-detail/:slug~:id">
+            {/* http://localhost:3000/movie-detail/ngoi-nha-hanh-phuc~123 */}
+            <DetailPage/>
           </PrivateRoute>
         </Switch>
       </Suspense>

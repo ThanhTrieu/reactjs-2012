@@ -49,7 +49,18 @@ const isEmptyObject = (obj) => {
   return JSON.stringify(obj) === JSON.stringify({});
 }
 
+const checkTrailerVideo = (videos = {}) => {
+  let check = false;
+  if(videos.hasOwnProperty('results')){
+    if(videos.results.length > 0){
+      check = true;
+    }
+  }
+  return check;
+}
+
 export const helper = {
+  checkTrailerVideo,
   isEmptyObject,
   isAuthenticated,
   saveToken,
